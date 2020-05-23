@@ -127,8 +127,8 @@ class CDTree(nn.Module):  # Convolution Decision Tree
             C -= lmbda * 0.5 * (torch.log(penalty) + torch.log(1 - penalty))
         output = torch.stack(max_Q)
         self.root.reset()  ##reset all stacked calculation
-        return output, loss+C+0.001 ## -log(loss) will always output non, because loss is always below zero. I suspect this is the mistake of the paper?
-
+        return output, loss+C+0.001 
+    
     def collect_parameters(self):
         nodes = [self.root]
         self.module_list = nn.ModuleList()
@@ -156,21 +156,23 @@ class CDForest(nn.Module):
         super(CDForest, self).__init__()
         self.trees = nn.ModuleList()
         self.n_tree = args.n_tree
-        self.weight = torch.randn(self.n_tree)
-        self.weight = nn.Parameter(self.weight, requires_grad=True)
+        #self.weight = torch.randn(self.n_tree)
+        #self.weight = nn.Parameter(self.weight, requires_grad=True)
         for _ in range(self.n_tree):
             tree = CDTree(args)
             self.trees.append(tree)
 
-    def forward(self, x, y):
+    def forward(self, x, y, criterion):
         probs, losses = [], []
         for i, tree in enumerate(self.trees):
-            prob, loss = tree(torch.rot90(x, i-1, [2, 3]), y)
+            prob, loss = tree(torch.rot90(x, i-1, [2, 3]), y, criterion)
             probs.append(prob.unsqueeze(2))
             losses.append(loss.unsqueeze(0))
         losses = torch.cat(losses, dim=0)
         probs = torch.cat(probs, dim=2)
-        normalized_weights = nn.functional.softmax(self.weight, dim=-1)
-        probs = nn.functional.linear(probs, normalized_weights)
-        losses = nn.functional.linear(losses, normalized_weights)
+        #normalized_weights = nn.functional.softmax(self.weight, dim=-1)
+        #probs = nn.functional.linear(probs, normalized_weights)
+        #losses = nn.functional.linear(losses, normalized_weights)
+        probs = torch.sum(probs, dim=2) / self.n_tree
+        losses = torch.sum(losses, dim=0) / self.n_tree
         return probs, losses
