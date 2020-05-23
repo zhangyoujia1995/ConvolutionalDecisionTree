@@ -11,8 +11,8 @@ class InnerNode():
         self.args = args
 
         self.conv = nn.Sequential(OrderedDict([
-            ('convolution', nn.Conv2d(input_channel, 8*2**(depth-1), kernel_size=(3, 3))),
-            ('batch_normalization', nn.BatchNorm2d(8 * 2 ** (depth - 1))),
+            ('convolution', nn.Conv2d(input_channel, 32*2**(depth-1), kernel_size=(3, 3))),
+            ('batch_normalization', nn.BatchNorm2d(32 * 2 ** (depth - 1))),
             ('relu', nn.ReLU()),
             ('pool', nn.AvgPool2d(kernel_size=2, stride=2))
         ]))
