@@ -80,7 +80,7 @@ class LeafNode():
     def __init__(self, input_channel, input_height, args):
         self.args = args
         self.leaf = True
-        self.fc_leaf = nn.Linear(input_channel * input_height * input_height, 10)
+        self.fc_leaf = nn.Linear(input_channel * input_height * input_height, self.args.output_dim)
         self.softmax = nn.Softmax()
 
     def reset(self):
