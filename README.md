@@ -1,6 +1,6 @@
 # ConvolutionalDecisionTree
 
-|After 20 epochs training|
+After 20 epochs training
 | Model | Accuracy |
 | - | -: |
 | CDTree | 99.34% |
