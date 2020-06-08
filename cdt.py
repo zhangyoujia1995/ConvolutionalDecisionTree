@@ -14,7 +14,7 @@ class InnerNode():
             ('convolution', nn.Conv2d(input_channel, 32*2**(depth-1), kernel_size=(3, 3))),
             ('batch_normalization', nn.BatchNorm2d(32 * 2 ** (depth - 1))),
             ('relu', nn.ReLU()),
-            ('pool', nn.AvgPool2d(kernel_size=2, stride=2))
+            ('pool', nn.MaxPool2d(kernel_size=2, stride=2))
         ]))
 
         fc_inputshape = self.get_outputshape(input_channel, input_height)
@@ -88,7 +88,7 @@ class LeafNode():
 
     def cal_prob(self, x, path_prob):
         out = self.fc_leaf(x.reshape(x.shape[0], -1))
-        Q = out
+        Q = self.softmax(out)
         Q = Q.expand((self.args.batch_size, self.args.output_dim))
         return [[path_prob, Q]]
 
