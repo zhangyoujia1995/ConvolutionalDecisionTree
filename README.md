@@ -23,5 +23,5 @@ SDT: Frosst, Nicholas, and Geoffrey Hinton. "Distilling a neural network into a 
 ## CIFAR10
 | Model | Accuracy |
 | - | -: |
-| CDTree | 90.19% |
+| CDTree | 90.13% |
 | gcForest* | 69.00% |
