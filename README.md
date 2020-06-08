@@ -2,7 +2,6 @@
 
 ## MNIST
 After 20 epochs training
-|MNIST|
 | Model | Accuracy |
 | - | -: |
 | CDTree | 99.34% |
@@ -20,3 +19,9 @@ DNDF: Kontschieder, Peter, et al. "Deep neural decision forests." Proceedings of
 SDT: Frosst, Nicholas, and Geoffrey Hinton. "Distilling a neural network into a soft decision tree." arXiv preprint arXiv:1711.09784 (2017).
 
 ![MNIST](https://github.com/zhangyoujia1995/ConvolutionalDecisionTree/blob/master/image/MNIST.png)
+
+## CIFAR10
+| Model | Accuracy |
+| - | -: |
+| CDTree |  |
+| gcForest* | 69.00% |
