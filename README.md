@@ -23,5 +23,14 @@ SDT: Frosst, Nicholas, and Geoffrey Hinton. "Distilling a neural network into a 
 ## CIFAR10
 | Model | Accuracy |
 | - | -: |
+| ResNet* | 93.57% |
+| Network in Network* | 91.20% |
+| MaxOut* | 90.65% |
 | CDTree | 90.13% |
 | gcForest* | 69.00% |
+
+ResNet: He, Kaiming, et al. "Deep residual learning for image recognition." Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.
+
+Network in Network: Lin, Min, Qiang Chen, and Shuicheng Yan. "Network in network." arXiv preprint arXiv:1312.4400 (2013).
+
+MaxOut: Goodfellow, Ian J., et al. "Maxout networks." arXiv preprint arXiv:1302.4389 (2013).
