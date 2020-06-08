@@ -2,6 +2,7 @@
 
 ## MNIST
 After 20 epochs training
+|Mnist||
 | Model | Accuracy |
 | - | -: |
 | CDTree | 99.34% |
