@@ -17,7 +17,7 @@ class InnerNode():
             ('pool', nn.MaxPool2d(kernel_size=2, stride=2))
         ]))
 
-        fc_inputshape = self.get_outputshape(input_channel, input_height)
+        fc_inputshape = self.get_size(input_channel, input_height)
         self.fc = nn.Linear(fc_inputshape[-1] * fc_inputshape[-2] * fc_inputshape[-3], 1)
 
         beta = torch.randn(1)
@@ -37,13 +37,13 @@ class InnerNode():
         self.left.reset()
         self.right.reset()
 
-    def get_outputshape(self, input_channel, input_height):
+    def get_size(self, input_channel, input_height):
         x = Variable(torch.randn(1, input_channel, input_height, input_height).type(torch.FloatTensor),
                      requires_grad=False)
         return self.conv(x).size()
 
     def build_child(self, depth, input_channel, input_height):
-        fc_inputshape = self.get_outputshape(input_channel, input_height)
+        fc_inputshape = self.get_size(input_channel, input_height)
         if depth < self.args.max_depth:
             self.left = InnerNode(depth + 1, fc_inputshape[1], fc_inputshape[-1], self.args)
             self.right = InnerNode(depth + 1, fc_inputshape[1], fc_inputshape[-1], self.args)
